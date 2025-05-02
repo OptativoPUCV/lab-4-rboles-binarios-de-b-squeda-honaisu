@@ -164,24 +164,19 @@ Pair * firstTreeMap(TreeMap * tree) {
 Pair * nextTreeMap(TreeMap * tree) {
     TreeNode* current = tree->current ;
     if (current == NULL) return NULL ;
-
-    if (current->parent == NULL) {
-        current = tree->root->right ;
-    } else {
-        if (current->right != NULL) current = minimum(current->right) ;
-        else {
-            // El padre del current
-            TreeNode* parent = current->parent ;
-            // Tiene que ir subiendo hasta encontrar el ancestro más viejo (el primero)
-            while (parent != NULL && parent->right == current) {
-                // El current se vuelve el padre
-                current = parent ;
-                // El padre se vuelve su padre 
-                parent = parent->parent ;
-            }
-
+    
+    if (current->right != NULL) current = minimum(current->right) ;
+    else {
+        // El padre del current
+        TreeNode* parent = current->parent ;
+        // Tiene que ir subiendo hasta encontrar el ancestro más viejo (el primero)
+        while (parent != NULL && parent->right == current) {
+            // El current se vuelve el padre
             current = parent ;
+            // El padre se vuelve su padre 
+            parent = parent->parent ;
         }
+        current = parent ;
     }
 
     tree->current = current ;
