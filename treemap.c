@@ -25,7 +25,6 @@ int is_equal(TreeMap* tree, void* key1, void* key2){
     else return 0;
 }
 
-
 TreeNode * createTreeNode(void* key, void * value) {
     TreeNode * new = (TreeNode *)malloc(sizeof(TreeNode));
     if (new == NULL) return NULL;
@@ -44,7 +43,6 @@ TreeMap * createTreeMap(int (*lower_than) (void* key1, void* key2)) {
     new_treeMap->lower_than = lower_than;
     return new_treeMap ;
 }
-
 
 void insertTreeMap(TreeMap * tree, void* key, void * value) {
 
@@ -69,11 +67,18 @@ void eraseTreeMap(TreeMap * tree, void* key){
 
 }
 
-
-
-
 Pair * searchTreeMap(TreeMap * tree, void* key) {
-    return NULL;
+    TreeNode* node = tree->root ;
+    if (tree->lower_than(key, node->pair->key) > 0) {
+
+    } else if (tree->lower_than(key, node->pair->key) < 0) {
+
+    } else {
+        tree->current = node ;
+        return node ;
+    }
+
+    return NULL ;
 }
 
 
