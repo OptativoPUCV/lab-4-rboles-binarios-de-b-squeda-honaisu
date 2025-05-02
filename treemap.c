@@ -155,12 +155,17 @@ Pair * upperBound(TreeMap * tree, void* key) {
     int resultado ;
     do {
         if (is_equal(tree, key, node->pair->key)) return node->pair ;
-        resultado = tree->lower_than(key, node->pair->key) ;
+        // La llave tiene que ser la mas chica (o igual) de los nodos
+        if (tree->lower_than(ub_node->pair->key, node->pair->key)) {
+            ub_node = node ;
+        }
 
-        if (tree->lower_than(ub_node->pair->key, node->pair->key)) ub_node = node ;
+        resultado = tree->lower_than(key, node->pair->key) ;
 
         if (resultado > 0) { node = node->left ; } 
         else { node = node->right ; }
+
+
     } while (node != NULL) ;
 
     return ub_node->pair ;
