@@ -81,7 +81,7 @@ void removeNode(TreeMap * tree, TreeNode* node) {
     if (node->left == NULL && node->right == NULL) {
         // Si no tiene padre (es la raiz), la asignamos a NULL
         if (node->parent == NULL) {
-            // Habria que implementar un removeRoot para hacer que fuera eficiente
+            // Dependiendo del caso, habria que implementar un removeRoot (solo si es necesario)
             tree->root = NULL ;
         } else {
             // Si tiene padre, y el padre apunta al hijo a la izquierda, lo anulamos. Lo mismo para la derecha 
@@ -95,7 +95,18 @@ void removeNode(TreeMap * tree, TreeNode* node) {
 
     // Si tiene UN hijo 
     if (node->left == NULL || node->right == NULL) {
-        if (node->parent == NULL) tree->root ;
+        TreeNode* child ;
+        if (node->left == NULL) child = node->right ;
+        else child = node->left ; 
+
+        if (node->parent == NULL) tree->root = child ;
+        else {
+            if (node == node->parent->left) node->parent->left = child ;
+            else node->parent->right = child ;
+        }
+        child->parent = node->parent ;
+        free(node->pair) ;
+        free(node) ;
     }
 }
 
