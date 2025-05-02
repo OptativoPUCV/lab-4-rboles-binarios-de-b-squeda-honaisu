@@ -77,7 +77,7 @@ Pair * searchTreeMap(TreeMap * tree, void* key) {
         resultado = tree->lower_than(key, node->pair->key) ;
         // Si la llave es MENOR que la otra llave (resultado POSITIVO)
 
-        if (resultado == 0 && is_equal(tree, key, node->pair->key)) {
+        if (resultado == 0) {
             tree->current = node ;
             return node->pair ;
         }
