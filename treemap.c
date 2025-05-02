@@ -56,6 +56,8 @@ void insertTreeMap(TreeMap * tree, void* key, void * value) {
         else pointer_node = pointer_node->right ;
     } while (pointer_node) ;
 
+    if (is_equal(tree, key, pointer_node->pair->key)) return ;
+
     new_node->parent = pointer_node ;
     if (tree->lower_than(key, pointer_node->pair->key) > 0) pointer_node->left = new_node ;
     else pointer_node->right = new_node ;
