@@ -86,17 +86,14 @@ Pair * searchTreeMap(TreeMap * tree, void* key) {
         if (node == NULL) return NULL ;
         resultado = tree->lower_than(key, node->pair->key) ;
 
-        if (resultado == 0) {
+        if (resultado == 0 && is_equal(tree, key, node->pair->key)) {
             tree->current = node ;
             return node->pair ;
         }
 
-        if (resultado > 0) {
-            node = node->right ;
-        } else if (resultado < 0) {
-            node = node->left ;
-        }
-    } while (1) ;
+        if (resultado > 0) node = node->right ;
+        else node = node->left ;
+    } while (node != NULL) ;
 
     return NULL ;
 }
