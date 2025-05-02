@@ -54,7 +54,7 @@ void insertTreeMap(TreeMap * tree, void* key, void * value) {
         resultado = tree->lower_than(key, pointer_node->pair->key) ;
         if (resultado > 0) pointer_node = pointer_node->left ;
         else pointer_node = pointer_node->right ;
-    } while (pointer_node) ;
+    } while (pointer_node != NULL) ;
 
     // Si son iguales se retorna (no queremos datos repetidos)
     if (is_equal(tree, key, pointer_node->pair->key)) return ;
@@ -131,8 +131,6 @@ Pair * searchTreeMap(TreeMap * tree, void* key) {
     TreeNode* node = tree->root ;
     int resultado ;
     do {
-        // Si no hay nodo retorna nulo (si o si va a tener que buscar algún nodo con la implementacion de busqueda)
-        if (node == NULL) return NULL ;
         resultado = tree->lower_than(key, node->pair->key) ;
         
         // Si el resultado es 0 y la llave es igual que la llave de mi nodo
@@ -151,7 +149,18 @@ Pair * searchTreeMap(TreeMap * tree, void* key) {
 
 
 Pair * upperBound(TreeMap * tree, void* key) {
-    return NULL;
+    TreeNode* node = tree->root ;
+    if (node == NULL) return NULL ;
+    Pair* pair_ub = node->pair ;
+    int resultado ;
+    do {
+        resultado = tree->lower_than(key, node->pair->key) ;
+
+        if (resultado > 0) node = node->left ;
+        else node = node->right ;
+    } while (node != NULL) ;
+
+    return NULL ;
 }
 
 Pair * firstTreeMap(TreeMap * tree) {
@@ -165,6 +174,7 @@ Pair * nextTreeMap(TreeMap * tree) {
     TreeNode* current = tree->current ;
     if (current == NULL) return NULL ;
     
+    // Si hay un sucesor del current, busca el valor minimo
     if (current->right != NULL) current = minimum(current->right) ;
     else {
         // El padre del current
@@ -173,9 +183,12 @@ Pair * nextTreeMap(TreeMap * tree) {
         while (parent != NULL && parent->right == current) {
             // El current se vuelve el padre
             current = parent ;
-            // El padre se vuelve su padre 
+            // El padre se vuelve su padre (abuelo del current)
             parent = parent->parent ;
         }
+        // Va comprobando que el hijo del padre sea el current
+        // Cuando termina (el hijo no es el sucesor del padre)
+        // Convierte el current a ese hijo
         current = parent ;
     }
 
