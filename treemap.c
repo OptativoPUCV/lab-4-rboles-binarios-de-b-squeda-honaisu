@@ -49,16 +49,14 @@ void insertTreeMap(TreeMap * tree, void* key, void * value) {
     TreeNode* pointer_node = tree->root ;
     int resultado ;
     do {
-        if (pointer_node == NULL) {
-            tree->current = new_node ;
-            return ;
-        }
-        resultado = tree->lower_than(key, pointer_node->pair->key) ;
-        if (resultado == 0 && is_equal(tree, key, pointer_node->pair->key)) { return ; }
+        if (pointer_node->left == pointer_node->right == NULL) return ;
 
+        resultado = tree->lower_than(key, pointer_node->pair->key) ;
         if (resultado > 0) pointer_node = pointer_node->left ;
         else pointer_node = pointer_node->right ;
-    } while (pointer_node->left != NULL || pointer_node->right != NULL) ;
+    } while (pointer_node != NULL) ;
+
+
 }
 
 TreeNode * minimum(TreeNode * x){
