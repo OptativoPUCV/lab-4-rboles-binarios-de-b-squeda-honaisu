@@ -172,8 +172,9 @@ Pair * nextTreeMap(TreeMap * tree) {
         else {
             // El padre del current
             TreeNode* parent = current->parent ; 
+            void* key = current->parent->pair->key ;
             // Tiene que ir subiendo hasta encontrar el ancestro más viejo (el primero)
-            while (parent != NULL && parent->right == current) {
+            while (parent != NULL && tree->lower_than(parent->pair->key, key)) {
                 // El current se vuelve el padre
                 current = parent ;
                 // El padre se vuelve su padre 
@@ -185,5 +186,5 @@ Pair * nextTreeMap(TreeMap * tree) {
     }
 
     tree->current = current ;
-    return current->pair ;
+    return (current != NULL) ? current->pair : NULL ;
 }
