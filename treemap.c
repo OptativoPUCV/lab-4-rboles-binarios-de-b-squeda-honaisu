@@ -54,6 +54,7 @@ void insertTreeMap(TreeMap * tree, void* key, void * value) {
             return ;
         }
         resultado = tree->lower_than(key, pointer_node->pair->key) ;
+        if (resultado == 0 && is_equal(tree, key, pointer_node->pair->key)) { return ; }
 
         if (resultado > 0) pointer_node = pointer_node->left ;
         else pointer_node = pointer_node->right ;
