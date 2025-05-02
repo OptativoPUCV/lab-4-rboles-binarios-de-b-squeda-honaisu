@@ -111,6 +111,7 @@ void removeNode(TreeMap * tree, TreeNode* node) {
         return ;
     }
 
+    // Si tiene DOS hijos
     TreeNode* minimo = minimum(node->right) ;
     node->pair->key = minimo->pair->key ;
     node->pair->value = minimo->pair->value ;
@@ -154,7 +155,9 @@ Pair * upperBound(TreeMap * tree, void* key) {
 }
 
 Pair * firstTreeMap(TreeMap * tree) {
-    return NULL;
+    if (tree == NULL || tree->root == NULL) return NULL ;
+    TreeNode* primero = minimum(tree->root->left) ;
+    return primero->pair ;
 }
 
 Pair * nextTreeMap(TreeMap * tree) {
