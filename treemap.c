@@ -85,14 +85,15 @@ Pair * searchTreeMap(TreeMap * tree, void* key) {
     do {
         if (node == NULL) return NULL ;
         resultado = tree->lower_than(key, node->pair->key) ;
+        // Si la llave es MENOR que la otra llave (resultado POSITIVO)
 
         if (resultado == 0 && is_equal(tree, key, node->pair->key)) {
             tree->current = node ;
             return node->pair ;
         }
 
-        if (resultado > 0) node = node->right ;
-        else node = node->left ;
+        if (resultado > 0) node = node->left ;
+        else node = node->right ;
     } while (node != NULL) ;
 
     return NULL ;
