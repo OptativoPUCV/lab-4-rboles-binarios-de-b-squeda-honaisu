@@ -156,7 +156,8 @@ Pair * upperBound(TreeMap * tree, void* key) {
     do {
         if (is_equal(tree, key, node->pair->key)) return node->pair ;
         resultado = tree->lower_than(key, node->pair->key) ;
-        if (tree->lower_than(node->pair->key, ub_node->pair->key)) {
+
+        if (tree->lower_than(ub_node->pair->key, node->pair->key)) {
             ub_node = node ;
         }
         
