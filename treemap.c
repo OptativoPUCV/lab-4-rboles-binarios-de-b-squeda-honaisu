@@ -156,7 +156,7 @@ Pair * upperBound(TreeMap * tree, void* key) {
     do {
         if (is_equal(tree, key, node->pair->key)) return node->pair ;
         // La llave tiene que ser la mas chica (o igual) de los nodos
-        if (tree->lower_than(ub_node->pair->key, node->pair->key)) {
+        if (tree->lower_than(ub_node->pair->key, node->pair->key) > 0) {
             ub_node = node ;
         }
 
