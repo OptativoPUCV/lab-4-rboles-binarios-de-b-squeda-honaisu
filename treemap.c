@@ -45,10 +45,10 @@ TreeMap * createTreeMap(int (*lower_than) (void* key1, void* key2)) {
 }
 
 void insertTreeMap(TreeMap * tree, void* key, void * value) {
-    TreeNode* new_node = createTreeNode(key, value) ;
     TreeNode* pointer_node = tree->root ;
     int resultado ;
     do {
+        // Si ambas "direcciones" del puntero son nulas, rompemos el ciclo
         if (pointer_node->left == NULL && pointer_node->right == NULL) break; ;
 
         resultado = tree->lower_than(key, pointer_node->pair->key) ;
@@ -56,17 +56,23 @@ void insertTreeMap(TreeMap * tree, void* key, void * value) {
         else pointer_node = pointer_node->right ;
     } while (pointer_node) ;
 
+    // Si son iguales se retorna (no queremos datos repetidos)
     if (is_equal(tree, key, pointer_node->pair->key)) return ;
+    TreeNode* new_node = createTreeNode(key, value) ;
 
+    // Creación del emparejamiento del nodo
     new_node->parent = pointer_node ;
+    // Si la llave es menor se inserta el nodo a la izquierda, si no, a la derecha (lower_than)
     if (tree->lower_than(key, pointer_node->pair->key) > 0) pointer_node->left = new_node ;
     else pointer_node->right = new_node ;
     tree->current = new_node ;
 }
 
 TreeNode * minimum(TreeNode * x){
-
-    return NULL;
+    do {
+        if (x == NULL) break ;
+    } while((x = x->left) != NULL) ;
+    return x ;
 }
 
 
