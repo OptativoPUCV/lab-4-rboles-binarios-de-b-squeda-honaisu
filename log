@@ -319,3 +319,9 @@ treemap.c:154:11: error: unused variable 'pair_ub' [-Werror=unused-variable]
            ^~~~~~~
 cc1.exe: all warnings being treated as errors
 1bc3cae
+Fri, May  2, 2025  2:35:19 PM: 
+ treemap.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+ tests:  27|1
+total_score: 60/70
+9160d0c
