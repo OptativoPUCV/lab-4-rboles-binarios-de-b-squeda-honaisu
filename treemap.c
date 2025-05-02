@@ -93,7 +93,7 @@ Pair * searchTreeMap(TreeMap * tree, void* key) {
         } else {
             node = node->left ;
         }
-    } while (node->right != NULL || node->left != NULL) ;
+    } while (node != NULL || node->right != NULL || node->left != NULL) ;
 
     return NULL ;
 }
