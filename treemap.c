@@ -151,24 +151,26 @@ Pair * searchTreeMap(TreeMap * tree, void* key) {
 Pair * upperBound(TreeMap * tree, void* key) {
     TreeNode* node = tree->root ;
     if (node == NULL) return NULL ;
-    TreeNode* ub_node = node ;
+    TreeNode* ub_node = NULL ;
     int resultado ;
     do {
-        if (is_equal(tree, key, node->pair->key)) return node->pair ;
-        // La llave tiene que ser la mas chica (o igual) de los nodos
-        if (tree->lower_than(ub_node->pair->key, node->pair->key) > 0) {
-            ub_node = node ;
+        if (is_equal(tree, key, node->pair->key)) {
+            tree->current = node ;
+            return node->pair ;
         }
-
+        // La llave tiene que ser la mas chica (o igual) de los nodos
         resultado = tree->lower_than(key, node->pair->key) ;
 
         if (resultado > 0) { node = node->left ; } 
-        else { node = node->right ; }
-
-
+        else { ub_node = node ; node = node->right ; }
     } while (node != NULL) ;
 
-    return ub_node->pair ;
+    if (ub_node != NULL) {
+        tree->current = ub_node ;
+        return ub_node->pair ;
+    }
+
+    return NULL ;
 }
 
 Pair * firstTreeMap(TreeMap * tree) {
