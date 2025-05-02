@@ -171,10 +171,11 @@ Pair * nextTreeMap(TreeMap * tree) {
         else {
             TreeNode* parent = current->parent ;
             while (parent != NULL && parent->pair->key < current->pair->key) {
+                current = parent ;
                 parent = parent->parent ;
             }
 
-            return parent->pair ;
+            current = parent ;
         }
     }
 
