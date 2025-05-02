@@ -49,7 +49,7 @@ void insertTreeMap(TreeMap * tree, void* key, void * value) {
     int resultado ;
     do {
         // Si ambas "direcciones" del puntero son nulas, rompemos el ciclo
-        if (pointer_node->left == NULL && pointer_node->right == NULL) break; ;
+        if (pointer_node->left == NULL && pointer_node->right == NULL) break ;
 
         resultado = tree->lower_than(key, pointer_node->pair->key) ;
         if (resultado > 0) pointer_node = pointer_node->left ;
@@ -77,6 +77,17 @@ TreeNode * minimum(TreeNode * x){
 
 
 void removeNode(TreeMap * tree, TreeNode* node) {
+    TreeNode* pointer_node = tree->root ;
+    int resultado ;
+    do {
+        if (is_equal(tree, node->pair->key, pointer_node->pair->key)) break ; 
+
+        resultado = tree->lower_than(node->pair->key, pointer_node->pair->key) ;
+        if (resultado > 0) pointer_node = pointer_node->left ;
+        else pointer_node = pointer_node->right ;
+    } while (pointer_node != NULL) ;
+
+
 
 }
 
@@ -93,15 +104,17 @@ Pair * searchTreeMap(TreeMap * tree, void* key) {
     TreeNode* node = tree->root ;
     int resultado ;
     do {
+        // Si no hay nodo retorna nulo (si o si va a tener que buscar algún nodo con la implementacion de busqueda)
         if (node == NULL) return NULL ;
         resultado = tree->lower_than(key, node->pair->key) ;
-        // Si la llave es MENOR que la otra llave (resultado POSITIVO)
-
+        
+        // Si el resultado es 0 y la llave es igual que la llave de mi nodo
         if (resultado == 0 && is_equal(tree, key, node->pair->key)) {
             tree->current = node ;
             return node->pair ;
         }
 
+        // Si la llave es MENOR que la otra llave (resultado POSITIVO) va a la izquierda, si no a la derecha
         if (resultado > 0) node = node->left ;
         else node = node->right ;
     } while (node != NULL) ;
