@@ -160,8 +160,8 @@ Pair * upperBound(TreeMap * tree, void* key) {
         }
         // La llave tiene que ser la mas chica (o igual) de los nodos
         resultado = tree->lower_than(key, node->pair->key) ;
-
-        if (resultado > 0) { ub_node = node ; node = node->left ; } 
+        // Si la clave es menor o igual, actualizamos el ub_node y recorremos a la izquierda
+        if (resultado >= 0) { ub_node = node ; node = node->left ; } 
         else { node = node->right ; }
     } while (node != NULL) ;
 
