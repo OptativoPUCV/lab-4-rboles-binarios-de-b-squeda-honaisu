@@ -185,3 +185,9 @@ treemap.c:81:63: error: assignment makes pointer from integer without a cast [-W
                                                                ^
 cc1.exe: all warnings being treated as errors
 c450bda
+Fri, May  2, 2025  1:13:00 PM: 
+ treemap.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
+ tests:  15|4
+total_score: 25/70
+ec2c25f
