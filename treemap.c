@@ -164,10 +164,11 @@ Pair * nextTreeMap(TreeMap * tree) {
     TreeNode* current = tree->current ;
     if (current == NULL) return NULL ;
 
-    if (current == tree->root) {
+    if (current->parent == NULL) {
         current = tree->root->right ;
     } else {
-        current = minimum(current->right) ;
+        if (current->right == NULL) current = current ; 
+        else current = minimum(current->right) ;
     }
 
     return current->pair ;
