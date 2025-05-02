@@ -151,14 +151,13 @@ Pair * searchTreeMap(TreeMap * tree, void* key) {
 Pair * upperBound(TreeMap * tree, void* key) {
     TreeNode* node = tree->root ;
     if (node == NULL) return NULL ;
-    Pair* pair_ub = node->pair ;
+    TreeNode* ub_node = node ;
     int resultado ;
     do {
         if (is_equal(tree, key, node->pair->key)) return node->pair ;
         resultado = tree->lower_than(key, node->pair->key) ;
-
-        if (resultado==0 && !is_equal(tree, key, node->pair->key)) {
-            pair_ub = node->pair ;
+        if (tree->lower_than(node->pair->key, ub_node->pair->key)) {
+            ub_node = node ;
         }
         
         if (resultado > 0) {
@@ -168,7 +167,7 @@ Pair * upperBound(TreeMap * tree, void* key) {
         }
     } while (node != NULL) ;
 
-    return pair_ub ;
+    return ub_node->pair ;
 }
 
 Pair * firstTreeMap(TreeMap * tree) {
